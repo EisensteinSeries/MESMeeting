@@ -1,1 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Eisenstein Series Research Meeting</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F4F0;
+    --bg-card: #FFFFFF;
+    --text: #1A1A1A;
+    --text-secondary: #5A5A5A;
+    --accent: #8B4513;
+    --accent-light: #C4956A;
+    --accent-bg: #F0E8E0;
+    --border: #D4CFC8;
+    --border-light: #E8E4DE;
+    --link: #7B3F00;
+  }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Language Toggle ── */
+  .lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 28px;
+    background: linear-gradient(to bottom, var(--bg) 60%, transparent);
+  }
+
+  .lang-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .lang-btn {
+    padding: 5px 14px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+  }
+
+  .lang-btn.active {
+    background: var(--accent);
+  }
+
+  .lang-btn:not(.active):hover {
+    background: var(--accent-bg);
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 76px 0 32px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 700;
+    color: var(--accent-light);
+    opacity: 0.12;
+    line-height: 1;
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3.6vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 2px;
+    position: relative;
+  }
+
+  .hero-title--ja {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(20px, 3vw, 30px);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 2.6vw, 26px);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  .hero-subtitle--ja {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(15px, 2.2vw, 22px);
+  }
+
+  .hero-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--accent);
+    margin: 20px auto;
+  }
+
+  /* ── Info Cards ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 560px) {
+    .info-grid { grid-template-columns: 1fr; }
+  }
+
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .info-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  }
+
+  .info-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .info-card-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .info-card-value--ja {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+  }
+
+  .info-card-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 3px;
+  }
+
+  /* ── Section Heading ── */
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-heading--ja {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+  }
+
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Schedule ── */
+  .schedule { margin-bottom: 48px; }
+
+  .schedule-item {
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+  }
+
+  .schedule-item:last-child { border-bottom: none; }
+
+  .schedule-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 126px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  @media (max-width: 560px) {
+    .schedule-time { min-width: 96px; font-size: 14px; }
+    .schedule-item { gap: 12px; }
+  }
+
+  .schedule-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    border: 2px solid var(--accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+    position: relative;
+  }
+
+  .schedule-item:not(:last-child) .schedule-dot::after {
+    content: '';
+    position: absolute;
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: calc(100% + 22px);
+    background: var(--border);
+  }
+
+  .schedule-content { flex: 1; }
+
+  .schedule-speaker {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 1px;
+  }
+
+  .schedule-speaker a { color: var(--text); }
+  .schedule-speaker a:hover { color: var(--link); }
+
+  .schedule-affiliation {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  .talk-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;
+    user-select: none;
+    transition: color 0.2s;
+  }
+
+  .talk-title:hover { color: var(--text); }
+
+  .talk-title .arrow {
+    display: inline-block;
+    font-size: 9px;
+    transition: transform 0.3s ease;
+  }
+
+  .talk-title.open .arrow { transform: rotate(90deg); }
+
+  .talk-abstract {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    background: var(--accent-bg);
+    border-radius: 6px;
+    padding: 0 14px;
+    margin-top: 4px;
+  }
+
+  .talk-abstract.open {
+    max-height: 300px;
+    padding: 12px 14px;
+  }
+
+  .schedule-tbd {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .schedule-break {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .schedule-break::before,
+  .schedule-break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-light);
+  }
+
+  /* ── Map ── */
+  .map-section { margin-bottom: 48px; }
+
+  .map-section iframe {
+    width: 100%;
+    height: 260px;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+  }
+
+  /* ── Previous ── */
+  .previous { margin-bottom: 48px; }
+
+  .previous-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .previous-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  }
+
+  .previous-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--accent-light);
+    opacity: 0.5;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .previous-info { flex: 1; }
+
+  .previous-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--link);
+    margin-bottom: 3px;
+  }
+
+  .previous-title--ja {
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  .previous-detail {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Links ── */
+  .links-section { margin-bottom: 48px; }
+
+  .links-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .links-list li {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 13px 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .links-list li:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+
+  .links-list a {
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .link-arrow { font-size: 12px; opacity: 0.5; }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+  }
+
+  .footer-label { margin-bottom: 8px; }
+
+  .footer-names {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+  }
+
+  .footer-names a {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .footer-names a:hover { color: var(--link); }
+
+  /* ── Animations ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
+  .d4{animation-delay:.4s}.d5{animation-delay:.5s}.d6{animation-delay:.6s}
+  .d7{animation-delay:.7s}.d8{animation-delay:.8s}
+</style>
+</head>
+<body>
+
+<!-- Language Bar -->
+<div class="lang-bar">
+  <div class="lang-toggle">
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧</button>
+    <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">🇯🇵</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Hero -->
+  <header class="hero fade-in">
+    <div class="hero-number">2</div>
+    <div class="hero-label" data-en="2nd Research Meeting" data-ja="第2回研究会">2nd Research Meeting</div>
+    <h1>
+      <div class="hero-title" data-en="Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン" data-jp-class="hero-title--ja">Multiple Eisenstein Series</div>
+      <div class="hero-subtitle" data-en="Research Meeting" data-ja="研究会" data-jp-class="hero-subtitle--ja">Research Meeting</div>
+    </h1>
+    <div class="hero-divider"></div>
+  </header>
+
+  <!-- Info Cards -->
+  <div class="info-grid">
+    <div class="info-card fade-in d1">
+      <div class="info-card-label" data-en="Date" data-ja="日時">Date</div>
+      <div class="info-card-value" id="date-en" data-en="November 11, 2026" data-ja="">November 11, 2026</div>
+      <div class="info-card-value info-card-value--ja" id="date-ja" style="display:none;">2026年11月8日（日）</div>
+      <div class="info-card-sub" data-en="10:30 – 15:30" data-ja="10:00 – 15:30">10:30 – 15:30</div>
+    </div>
+    <div class="info-card fade-in d2">
+      <div class="info-card-label" data-en="Venue" data-ja="会場">Venue</div>
+      <div class="info-card-value" data-en="Graduate School of Mathematics" data-ja="多元数理科学研究科" data-jp-class="info-card-value--ja">Graduate School of Mathematics</div>
+      <div class="info-card-sub" data-en="Nagoya University, Room 109" data-ja="名古屋大学 1F 109">Nagoya University, Room 109</div>
+    </div>
+  </div>
+
+  <!-- Schedule -->
+  <section class="schedule fade-in d3">
+    <h2 class="section-heading" data-en="Schedule (tentative)" data-ja="プログラム（暫定）" data-jp-class="section-heading--ja">Schedule (tentative)</h2>
+
+    <div class="schedule-item">
+      <div class="schedule-time">10:30 – 11:30</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker"><a href="https://sites.google.com/view/annikaburmester" target="_blank" rel="noopener">Annika Burmester</a></div>
+        <div class="schedule-affiliation" data-en="Bielefeld University" data-ja="ビーレフェルト大学">Bielefeld University</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
+    <div class="schedule-break" data-en="Lunch Break" data-ja="昼休み">Lunch Break</div>
+
+    <div class="schedule-item">
+      <div class="schedule-time">13:00 – 14:00</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="schedule-time">14:15 – 15:15</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="map-section fade-in d4">
+    <h2 class="section-heading" data-en="Access" data-ja="アクセス" data-jp-class="section-heading--ja">Access</h2>
+    <iframe
+      src="https://maps.google.com/maps?q=35.15313,136.96536&z=16&output=embed"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </section>
+
+  <!-- Previous Meetings -->
+  <section class="previous fade-in d5">
+    <h2 class="section-heading" data-en="Previous Meetings" data-ja="過去の研究会" data-jp-class="section-heading--ja">Previous Meetings</h2>
+    <div class="previous-card">
+      <div class="previous-number">1</div>
+      <div class="previous-info">
+        <a href="https://www.henrikbachmann.com/uploads/7/7/6/3/77634444/smes.pdf" target="_blank" rel="noopener">
+          <div class="previous-title" data-en="Sendai Seminar on Multiple Eisenstein Series" data-ja="第1回多重アイゼンシュタイン研究会" data-jp-class="previous-title--ja">Sendai Seminar on Multiple Eisenstein Series</div>
+        </a>
+        <div class="previous-detail" data-en="Tohoku University — December 2024" data-ja="東北大学 — 2024年12月">Tohoku University — December 2024</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Links -->
+  <section class="links-section fade-in d6">
+    <h2 class="section-heading" data-en="Related Links" data-ja="関連リンク" data-jp-class="section-heading--ja">Related Links</h2>
+    <ul class="links-list">
+      <li>
+        <a href="https://henrik3141.github.io/mes/" target="_blank" rel="noopener">
+          <span data-en="References for Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン級数の文献集">References for Multiple Eisenstein Series</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Footer / Organizers -->
+  <footer class="footer fade-in d7">
+    <div class="footer-label" data-en="Organized by" data-ja="世話人">Organized by</div>
+    <div class="footer-names">
+      <a href="https://www.henrikbachmann.com/" target="_blank" rel="noopener" data-en="Henrik Bachmann" data-ja="バッハマン ヘンリク">Henrik Bachmann</a>
+      <a href="https://sites.google.com/view/hkanno/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener" data-en="Hayato Kanno" data-ja="菅野 隼">Hayato Kanno</a>
+      <a href="https://sites.google.com/view/yujinbo/" target="_blank" rel="noopener" data-en="Jinbo Yu" data-ja="余 錦波">Jinbo Yu</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const defaultLang = Intl.DateTimeFormat().resolvedOptions().timeZone === 'Asia/Tokyo' ? 'ja' : 'en';
+
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    // Swap text on leaf-level data-en/data-ja elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+      if (!el.querySelector('[data-en]')) {
+        el.textContent = lang === 'ja' ? el.dataset.ja : el.dataset.en;
+      }
+    });
+
+    // Re-attach arrow spans inside talk-title elements
+    document.querySelectorAll('.talk-title').forEach(el => {
+      const span = el.querySelector('[data-en]');
+      const text = lang === 'ja' ? span.dataset.ja : span.dataset.en;
+      span.textContent = text;
+      // Arrow is a sibling span, untouched
+    });
+
+    // Date toggle
+    const dateEn = document.getElementById('date-en');
+    const dateJa = document.getElementById('date-ja');
+    dateEn.style.display = lang === 'ja' ? 'none' : 'block';
+    dateJa.style.display = lang === 'ja' ? 'block' : 'none';
+
+    // Font class toggle
+    document.querySelectorAll('[data-jp-class]').forEach(el => {
+      el.classList.toggle(el.dataset.jpClass, lang === 'ja');
+    });
+  }
+
+  function toggleAbstract(el) {
+    el.classList.toggle('open');
+    el.nextElementSibling.classList.toggle('open');
+  }
+
+  setLang(defaultLang);
+</script>
+
+</body>
+</html>
