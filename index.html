@@ -117,10 +117,6 @@
     position: relative;
   }
 
-  .hero-label:empty {
-    display: none;
-  }
-
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(22px, 3.6vw, 36px);
@@ -209,6 +205,22 @@
     color: var(--text-secondary);
     margin-top: 3px;
   }
+
+  /* ── Remark ── */
+  .remark {
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: var(--accent-bg);
+    border-left: 3px solid var(--accent-light);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .lang-en, .lang-ja { display: none; }
+  html[lang="en"] .lang-en { display: inline; }
+  html[lang="ja"] .lang-ja { display: inline; }
 
   /* ── Section Heading ── */
   .section-heading {
@@ -515,9 +527,9 @@
   <!-- Hero -->
   <header class="hero fade-in">
     <div class="hero-number">2</div>
-    <div class="hero-label" data-en="" data-ja="第2回研究会"></div>
+    <div class="hero-label" data-en="The 2nd" data-ja="第2回研究会">The 2nd</div>
     <h1>
-      <div class="hero-title" data-en="The 2nd Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン" data-jp-class="hero-title--ja">The 2nd Multiple Eisenstein Series</div>
+      <div class="hero-title" data-en="Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン" data-jp-class="hero-title--ja">Multiple Eisenstein Series</div>
       <div class="hero-subtitle" data-en="Research Meeting" data-ja="研究会" data-jp-class="hero-subtitle--ja">Research Meeting</div>
     </h1>
     <div class="hero-divider"></div>
@@ -529,7 +541,7 @@
       <div class="info-card-label" data-en="Date" data-ja="日時">Date</div>
       <div class="info-card-value" id="date-en" data-en="November 11, 2026" data-ja="">November 11, 2026</div>
       <div class="info-card-value info-card-value--ja" id="date-ja" style="display:none;">2026年11月8日（日）</div>
-      <div class="info-card-sub" data-en="10:30 – 15:30" data-ja="10:00 – 15:30">10:30 – 15:30</div>
+      <div class="info-card-sub" data-en="9:30 – 15:45" data-ja="9:30 – 15:45">9:30 – 15:45</div>
     </div>
     <div class="info-card fade-in d2">
       <div class="info-card-label" data-en="Venue" data-ja="会場">Venue</div>
@@ -538,12 +550,18 @@
     </div>
   </div>
 
+  <!-- Remark -->
+  <div class="remark fade-in d2">
+    <span class="lang-en">Note: The <a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">72nd Kansai Multiple Zeta Seminar</a> will be held on November 7th (the day before) at the same venue.</span>
+    <span class="lang-ja">備考：前日の11月7日（土）に同会場にて<a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">第72回関西多重ゼータ研究会</a>が開催されます。</span>
+  </div>
+
   <!-- Schedule -->
   <section class="schedule fade-in d3">
     <h2 class="section-heading" data-en="Schedule (tentative)" data-ja="プログラム（暫定）" data-jp-class="section-heading--ja">Schedule (tentative)</h2>
 
     <div class="schedule-item">
-      <div class="schedule-time">10:30 – 11:30</div>
+      <div class="schedule-time">9:30 – 10:30</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
         <div class="schedule-speaker"><a href="https://sites.google.com/view/annikaburmester" target="_blank" rel="noopener">Annika Burmester</a></div>
@@ -553,10 +571,20 @@
       </div>
     </div>
 
+    <div class="schedule-item">
+      <div class="schedule-time">10:45 – 11:45</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
     <div class="schedule-break" data-en="Lunch Break" data-ja="昼休み">Lunch Break</div>
 
     <div class="schedule-item">
-      <div class="schedule-time">13:00 – 14:00</div>
+      <div class="schedule-time">13:30 – 14:30</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
         <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
@@ -566,7 +594,7 @@
     </div>
 
     <div class="schedule-item">
-      <div class="schedule-time">14:15 – 15:15</div>
+      <div class="schedule-time">14:45 – 15:45</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
         <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
@@ -608,6 +636,12 @@
       <li>
         <a href="https://henrik3141.github.io/mes/" target="_blank" rel="noopener">
           <span data-en="References for Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン級数の文献集">References for Multiple Eisenstein Series</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">
+          <span data-en="Kansai Multiple Zeta Seminar" data-ja="関西多重ゼータ研究会">Kansai Multiple Zeta Seminar</span>
           <span class="link-arrow">↗</span>
         </a>
       </li>
