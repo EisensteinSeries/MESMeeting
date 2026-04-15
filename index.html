@@ -527,18 +527,26 @@
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     color: var(--accent);
-    opacity: 0.045;
+    opacity: 0.12;
     pointer-events: none;
-    animation: floatDrift linear infinite;
+    will-change: transform;
   }
 
-  @keyframes floatDrift {
-    0%   { transform: translate(0, 0) rotate(var(--rot)); }
-    100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+  .float-rel sub {
+    font-size: 0.7em;
+    vertical-align: -0.2em;
   }
 
   /* ── Relation Box ── */
   .relation-section { margin-bottom: 48px; }
+
+  .relation-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    text-align: center;
+    font-style: italic;
+  }
 
   .relation-box {
     background: var(--bg-card);
@@ -686,11 +694,7 @@
 
   /* ── Footer ── */
   .footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 0;
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-secondary);
+    padding: 20px 0;
     margin-bottom: 40px;
   }
 
@@ -869,7 +873,7 @@
 
   <!-- Random Relation -->
   <section class="relation-section fade-in d7">
-    <h2 class="section-heading" data-en="Random Relation" data-ja="ランダムな関係式" data-jp-class="section-heading--ja">Random Relation</h2>
+    <div class="relation-label" data-en="Random linear relation among multiple Eisenstein series" data-ja="多重アイゼンシュタイン級数のランダムな線形関係式">Random linear relation among multiple Eisenstein series</div>
     <div class="relation-box">
       <button class="info-trigger" onclick="toggleInfo()" title="Definition">i</button>
       <div class="info-popup" id="info-popup">
@@ -883,7 +887,7 @@
         <select class="rel-select" id="rel-weight">
           <option value="0" data-en="Random wt." data-ja="ランダム">Random wt.</option>
           <option value="6">Weight 6</option><option value="7">Weight 7</option>
-          <option value="8">Weight 8</option><option value="9">Weight 9</option>
+          <option value="8" selected>Weight 8</option><option value="9">Weight 9</option>
           <option value="10">Weight 10</option><option value="11">Weight 11</option>
           <option value="12">Weight 12</option><option value="13">Weight 13</option>
           <option value="14">Weight 14</option><option value="15">Weight 15</option>
@@ -1093,6 +1097,7 @@
     _conv=c;
     document.querySelectorAll('.conv-btn').forEach(b=>b.classList.toggle('active',b.dataset.conv===c));
     if(_lastRel)renderRel(_lastRel);
+    if(typeof updateFloatConv==='function')updateFloatConv();
   }
 
   function renderRel(rel){
@@ -1127,44 +1132,59 @@
   });
   initRelation();
 
-  // ── Floating background relations ──
+  // ── Floating DVD-bounce relations ──
+  const _floatRels = [
+    ['6G<sub>3,3</sub> − 3G<sub>4,2</sub> = G<sub>6</sub>','6G<sub>3,3</sub> − 3G<sub>2,4</sub> = G<sub>6</sub>'],
+    ['4G<sub>3,4</sub> + 3G<sub>4,3</sub> − 2G<sub>5,2</sub> = G<sub>7</sub>','4G<sub>4,3</sub> + 3G<sub>3,4</sub> − 2G<sub>2,5</sub> = G<sub>7</sub>'],
+    ['2G<sub>2,2</sub> + G<sub>4</sub> = G<sub>2</sub> · G<sub>2</sub>','2G<sub>2,2</sub> + G<sub>4</sub> = G<sub>2</sub> · G<sub>2</sub>'],
+    ['10G<sub>3,5</sub> − 6G<sub>5,3</sub> + G<sub>4,4</sub> = 3G<sub>8</sub>','10G<sub>5,3</sub> − 6G<sub>3,5</sub> + G<sub>4,4</sub> = 3G<sub>8</sub>'],
+    ['2G<sub>2,3</sub> + 3G<sub>3,2</sub> = G<sub>2</sub> · G<sub>3</sub>','2G<sub>3,2</sub> + 3G<sub>2,3</sub> = G<sub>2</sub> · G<sub>3</sub>'],
+    ['3G<sub>2,2,2</sub> + G<sub>2,4</sub> + G<sub>4,2</sub> = G<sub>2</sub> · G<sub>4</sub>','3G<sub>2,2,2</sub> + G<sub>4,2</sub> + G<sub>2,4</sub> = G<sub>2</sub> · G<sub>4</sub>'],
+    ['G<sub>4</sub> · G<sub>6</sub> = G<sub>4,6</sub> + G<sub>6,4</sub> + G<sub>10</sub>','G<sub>4</sub> · G<sub>6</sub> = G<sub>6,4</sub> + G<sub>4,6</sub> + G<sub>10</sub>'],
+    ['6G<sub>3,3,3</sub> − 3G<sub>4,3,2</sub> = G<sub>3,6</sub>','6G<sub>3,3,3</sub> − 3G<sub>2,3,4</sub> = G<sub>6,3</sub>'],
+    ['15G<sub>3,7</sub> − 10G<sub>7,3</sub> + 6G<sub>5,5</sub> − G<sub>6,4</sub> = 6G<sub>10</sub>','15G<sub>7,3</sub> − 10G<sub>3,7</sub> + 6G<sub>5,5</sub> − G<sub>4,6</sub> = 6G<sub>10</sub>'],
+    ['5G<sub>3,4,3</sub> − 3G<sub>4,3,3</sub> + 2G<sub>5,2,3</sub> = G<sub>7,3</sub>','5G<sub>3,4,3</sub> − 3G<sub>3,3,4</sub> + 2G<sub>3,2,5</sub> = G<sub>3,7</sub>'],
+    ['20G<sub>3,9</sub> − 15G<sub>9,3</sub> + 10G<sub>5,7</sub> − 6G<sub>7,5</sub> = 5G<sub>12</sub>','20G<sub>9,3</sub> − 15G<sub>3,9</sub> + 10G<sub>7,5</sub> − 6G<sub>5,7</sub> = 5G<sub>12</sub>'],
+    ['6G<sub>3,3</sub> · G<sub>2</sub> = 3G<sub>4,2</sub> · G<sub>2</sub> + G<sub>6</sub> · G<sub>2</sub>','6G<sub>3,3</sub> · G<sub>2</sub> = 3G<sub>2,4</sub> · G<sub>2</sub> + G<sub>6</sub> · G<sub>2</sub>'],
+  ];
+  let _floatEls = [];
+  function updateFloatConv(){
+    const rev = _conv==='rev' ? 1 : 0;
+    _floatEls.forEach((it,i)=>{ it.el.innerHTML = _floatRels[i % _floatRels.length][rev]; });
+    requestAnimationFrame(()=>{_floatEls.forEach(it=>{it.w=it.el.offsetWidth;it.h=it.el.offsetHeight})});
+  }
   (function initFloats(){
-    const rels=[
-      '6G₃,₃ − 3G₄,₂ = G₆',
-      '4G₃,₄ + 3G₄,₃ − 2G₅,₂ = G₇',
-      'G₂,₂ · G₂ = 2G₂,₂,₂ + G₂,₄ + G₄,₂',
-      '10G₃,₅ − 6G₅,₃ + G₄,₄ = 3G₈',
-      'G₄ · G₆ = G₄,₆ + G₆,₄ + G₁₀',
-      '3G₂,₂,₂ + G₂,₄ + G₄,₂ = G₂ · G₄',
-      '15G₃,₃,₃ − 9G₃,₄,₂ = 2G₃,₆ + G₉',
-      'ζ(3,5) + ζ(5,3) + ζ(8) = ζ(3)ζ(5)',
-      '2G₂,₃ + 3G₃,₂ = G₂ · G₃',
-      'G₆,₂ + G₂,₆ + G₈ = G₂ · G₆',
-      '5G₃,₇ − 3G₇,₃ + 2G₅,₅ = 2G₁₀',
-      '6G₄,₃,₃ − 3G₄,₄,₂ = G₄,₆',
-    ];
     const bg=document.getElementById('float-bg');
     if(!bg)return;
-    const count=10;
-    for(let i=0;i<count;i++){
+    for(let i=0;i<10;i++){
       const el=document.createElement('span');
       el.className='float-rel';
-      el.textContent=rels[Math.floor(Math.random()*rels.length)];
-      const sz=14+Math.random()*14;
+      el.innerHTML=_floatRels[i % _floatRels.length][0];
+      const sz=15+Math.random()*10;
       el.style.fontSize=sz+'px';
-      el.style.top=Math.random()*100+'%';
-      el.style.left=-10+Math.random()*100+'%';
-      const dur=50+Math.random()*70;
-      const dx=(Math.random()<0.5?1:-1)*(80+Math.random()*200);
-      const dy=(Math.random()<0.5?1:-1)*(40+Math.random()*120);
-      const rot=(Math.random()-0.5)*8;
-      el.style.setProperty('--dx',dx+'px');
-      el.style.setProperty('--dy',dy+'px');
-      el.style.setProperty('--rot',rot+'deg');
-      el.style.animationDuration=dur+'s';
-      el.style.animationDelay=-Math.random()*dur+'s';
+      const x=Math.random()*(window.innerWidth-200);
+      const y=Math.random()*(window.innerHeight-40);
+      el.style.left='0';el.style.top='0';
+      el.style.transform='translate('+x+'px,'+y+'px)';
       bg.appendChild(el);
+      const speed=0.15+Math.random()*0.25;
+      const angle=Math.random()*Math.PI*2;
+      _floatEls.push({el,x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,w:0,h:0});
     }
+    requestAnimationFrame(()=>{_floatEls.forEach(it=>{it.w=it.el.offsetWidth;it.h=it.el.offsetHeight})});
+    function tick(){
+      const W=window.innerWidth, H=window.innerHeight;
+      _floatEls.forEach(it=>{
+        it.x+=it.vx; it.y+=it.vy;
+        if(it.x<=0){it.x=0;it.vx=Math.abs(it.vx)}
+        if(it.x+it.w>=W){it.x=W-it.w;it.vx=-Math.abs(it.vx)}
+        if(it.y<=0){it.y=0;it.vy=Math.abs(it.vy)}
+        if(it.y+it.h>=H){it.y=H-it.h;it.vy=-Math.abs(it.vy)}
+        it.el.style.transform='translate('+it.x+'px,'+it.y+'px)';
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   })();
 </script>
 
