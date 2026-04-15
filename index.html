@@ -6,6 +6,8 @@
 <title>MES研究会</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23127475'/><text x='32' y='46' font-family='serif' font-size='40' font-weight='bold' fill='white' text-anchor='middle'>Σ</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js"></script>
 <style>
   :root {
     --bg: #FFFFFF;
@@ -470,6 +472,218 @@
 
   .link-arrow { font-size: 12px; opacity: 0.5; }
 
+  /* ── Organizers ── */
+  .organizers {
+    margin-bottom: 40px;
+  }
+
+  .organizers-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .organizers-names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+  }
+
+  .organizers-names a {
+    font-weight: 500;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .organizers-names a:hover { color: var(--link); }
+
+  .org-person {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .org-affil {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  /* ── Floating background relations ── */
+  .float-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .float-rel {
+    position: absolute;
+    white-space: nowrap;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--accent);
+    opacity: 0.045;
+    pointer-events: none;
+    animation: floatDrift linear infinite;
+  }
+
+  @keyframes floatDrift {
+    0%   { transform: translate(0, 0) rotate(var(--rot)); }
+    100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+  }
+
+  /* ── Relation Box ── */
+  .relation-section { margin-bottom: 48px; }
+
+  .relation-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .relation-formula {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0 4px;
+  }
+
+  .relation-formula .katex { font-size: 1.05em; }
+
+  .relation-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .rel-select {
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-card);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .relation-btn {
+    padding: 7px 18px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--accent);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .relation-btn:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .conv-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+
+  .conv-btn {
+    padding: 5px 10px;
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .conv-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ── Info popup ── */
+  .relation-box { position: relative; }
+
+  .info-trigger {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+
+  .info-trigger:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .info-popup {
+    display: none;
+    position: absolute;
+    top: 46px;
+    right: 0;
+    width: min(420px, calc(100vw - 80px));
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    z-index: 50;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .info-popup.open { display: block; }
+
+  .info-popup-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .info-popup .katex { font-size: 0.92em; }
+
+  .info-popup-def {
+    margin: 10px 0;
+    text-align: center;
+  }
+
   /* ── Footer ── */
   .footer {
     border-top: 1px solid var(--border);
@@ -479,23 +693,6 @@
     color: var(--text-secondary);
     margin-bottom: 40px;
   }
-
-  .footer-label { margin-bottom: 8px; }
-
-  .footer-names {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 4px 18px;
-  }
-
-  .footer-names a {
-    font-weight: 600;
-    color: var(--text);
-    font-size: 14px;
-  }
-
-  .footer-names a:hover { color: var(--link); }
 
   /* ── Animations ── */
   .fade-in {
@@ -514,6 +711,8 @@
 </style>
 </head>
 <body>
+
+<div class="float-bg" id="float-bg"></div>
 
 <!-- Language Bar -->
 <div class="lang-bar">
@@ -542,7 +741,7 @@
       <div class="info-card-label" data-en="Date" data-ja="日時">Date</div>
       <div class="info-card-value" id="date-en" data-en="November 11, 2026" data-ja="">November 11, 2026</div>
       <div class="info-card-value info-card-value--ja" id="date-ja" style="display:none;">2026年11月8日（日）</div>
-      <div class="info-card-sub" data-en="9:30 – 15:45" data-ja="9:30 – 15:45">9:30 – 15:45</div>
+      <div class="info-card-sub" data-en="10:00 – 15:30" data-ja="10:00 – 15:30">10:00 – 15:30</div>
     </div>
     <div class="info-card fade-in d2">
       <div class="info-card-label" data-en="Venue" data-ja="会場">Venue</div>
@@ -557,12 +756,41 @@
     <span class="lang-ja">備考：前日の11月7日（土）に同会場にて<a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">第72回関西多重ゼータ研究会</a>が開催されます。</span>
   </div>
 
+  <!-- Organizers -->
+  <div class="organizers fade-in d2">
+    <div class="organizers-label" data-en="Organizers" data-ja="世話人">Organizers</div>
+    <div class="organizers-names">
+      <span class="org-person">
+        <a href="https://www.henrikbachmann.com/" target="_blank" rel="noopener" data-en="Henrik Bachmann" data-ja="バッハマン ヘンリク">Henrik Bachmann</a>
+        <span class="org-affil" data-en="(Nagoya University)" data-ja="（名古屋大学）">(Nagoya University)</span>
+      </span>
+      <span class="org-person">
+        <a href="https://sites.google.com/view/hkanno/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener" data-en="Hayato Kanno" data-ja="菅野 隼">Hayato Kanno</a>
+        <span class="org-affil" data-en="(Tohoku University)" data-ja="（東北大学）">(Tohoku University)</span>
+      </span>
+      <span class="org-person">
+        <a href="https://sites.google.com/view/yujinbo/" target="_blank" rel="noopener" data-en="Jinbo Yu" data-ja="余 錦波">Jinbo Yu</a>
+        <span class="org-affil" data-en="(Nagoya University)" data-ja="（名古屋大学）">(Nagoya University)</span>
+      </span>
+    </div>
+  </div>
+
   <!-- Schedule -->
   <section class="schedule fade-in d3">
     <h2 class="section-heading" data-en="Schedule (tentative)" data-ja="プログラム（暫定）" data-jp-class="section-heading--ja">Schedule (tentative)</h2>
 
     <div class="schedule-item">
-      <div class="schedule-time">9:30 – 10:30</div>
+      <div class="schedule-time">10:00 – 10:50</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="schedule-time">11:10 – 12:00</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
         <div class="schedule-speaker"><a href="https://sites.google.com/view/annikaburmester" target="_blank" rel="noopener">Annika Burmester</a></div>
@@ -572,20 +800,10 @@
       </div>
     </div>
 
-    <div class="schedule-item">
-      <div class="schedule-time">10:45 – 11:45</div>
-      <div class="schedule-dot"></div>
-      <div class="schedule-content">
-        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
-        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
-        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
-      </div>
-    </div>
-
     <div class="schedule-break" data-en="Lunch Break" data-ja="昼休み">Lunch Break</div>
 
     <div class="schedule-item">
-      <div class="schedule-time">13:30 – 14:30</div>
+      <div class="schedule-time">13:30 – 14:20</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
         <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
@@ -595,7 +813,7 @@
     </div>
 
     <div class="schedule-item">
-      <div class="schedule-time">14:45 – 15:45</div>
+      <div class="schedule-time">14:40 – 15:30</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
         <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
@@ -649,15 +867,42 @@
     </ul>
   </section>
 
-  <!-- Footer / Organizers -->
-  <footer class="footer fade-in d7">
-    <div class="footer-label" data-en="Organized by" data-ja="世話人">Organized by</div>
-    <div class="footer-names">
-      <a href="https://www.henrikbachmann.com/" target="_blank" rel="noopener" data-en="Henrik Bachmann" data-ja="バッハマン ヘンリク">Henrik Bachmann</a>
-      <a href="https://sites.google.com/view/hkanno/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener" data-en="Hayato Kanno" data-ja="菅野 隼">Hayato Kanno</a>
-      <a href="https://sites.google.com/view/yujinbo/" target="_blank" rel="noopener" data-en="Jinbo Yu" data-ja="余 錦波">Jinbo Yu</a>
+  <!-- Random Relation -->
+  <section class="relation-section fade-in d7">
+    <h2 class="section-heading" data-en="Random Relation" data-ja="ランダムな関係式" data-jp-class="section-heading--ja">Random Relation</h2>
+    <div class="relation-box">
+      <button class="info-trigger" onclick="toggleInfo()" title="Definition">i</button>
+      <div class="info-popup" id="info-popup">
+        <div class="info-popup-title" data-en="Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン級数">Multiple Eisenstein Series</div>
+        <div data-en="For integers k₁,…,kᵣ ≥ 2 and τ in the upper half-plane:" data-ja="整数 k₁,…,kᵣ ≥ 2 と上半平面上の τ に対して：">For integers k₁,…,kᵣ ≥ 2 and τ in the upper half-plane:</div>
+        <div class="info-popup-def" id="info-def"></div>
+        <div data-en="The order ≻ on the lattice ℤτ+ℤ is the lexicographic order given by" data-ja="格子 ℤτ+ℤ 上の順序 ≻ は以下の辞書式順序：">The order ≻ on the lattice ℤτ+ℤ is the lexicographic order given by</div>
+        <div class="info-popup-def" id="info-order"></div>
+      </div>
+      <div class="relation-controls">
+        <select class="rel-select" id="rel-weight">
+          <option value="0" data-en="Random wt." data-ja="ランダム">Random wt.</option>
+          <option value="6">Weight 6</option><option value="7">Weight 7</option>
+          <option value="8">Weight 8</option><option value="9">Weight 9</option>
+          <option value="10">Weight 10</option><option value="11">Weight 11</option>
+          <option value="12">Weight 12</option><option value="13">Weight 13</option>
+          <option value="14">Weight 14</option><option value="15">Weight 15</option>
+          <option value="16">Weight 16</option><option value="17">Weight 17</option>
+        </select>
+        <button class="relation-btn" id="rel-btn" onclick="newRelation()">
+          <span data-en="Generate" data-ja="生成">Generate</span>
+        </button>
+        <div class="conv-toggle">
+          <button class="conv-btn active" data-conv="std" onclick="setConv('std')">ζ(2,1)=ζ(3)</button>
+          <button class="conv-btn" data-conv="rev" onclick="setConv('rev')">ζ(1,2)=ζ(3)</button>
+        </div>
+      </div>
+      <div class="relation-formula" id="rel-formula"></div>
     </div>
-  </footer>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer fade-in d8"></footer>
 
 </div>
 
@@ -704,6 +949,223 @@
   }
 
   setLang(defaultLang);
+
+  // ================================================================
+  // MES Relation Generator — Stuffle & Shuffle products,
+  // φ(w) = w*z₂ - w⧢z₂, R(u,v) = φ(u*v) - φ(u)*v - u*φ(v)
+  // Based on Bachmann–Kanno–Maesaka (2026)
+  // ================================================================
+  const _sm=new Map(),_shm=new Map();
+  let _conv='std', _lastRel=null;
+
+  function pAdd(a,b){const r=new Map(a);for(const[k,v]of b)r.set(k,(r.get(k)||0)+v);for(const[k,v]of r)if(Math.abs(v)<1e-9)r.delete(k);return r}
+  function pSc(p,s){const r=new Map();for(const[k,v]of p){const n=v*s;if(Math.abs(n)>1e-9)r.set(k,n)}return r}
+  function pSub(a,b){return pAdd(a,pSc(b,-1))}
+  function pre(k,p){const r=new Map();for(const[key,c]of p){const nk=key===''?String(k):k+','+key;r.set(nk,(r.get(nk)||0)+c)}return r}
+  function toW(k){return k===''?[]:k.split(',').map(Number)}
+  function mkP(w){return new Map([[w.join(','),1]])}
+
+  // Stuffle (harmonic) product
+  function stW(u,v){
+    const key=u+'/'+v;if(_sm.has(key))return _sm.get(key);let r;
+    if(!u.length)r=new Map([[v.join(','),1]]);
+    else if(!v.length)r=new Map([[u.join(','),1]]);
+    else{const[a,...ut]=u,[b,...vt]=v;r=pAdd(pAdd(pre(a,stW(ut,v)),pre(b,stW(u,vt))),pre(a+b,stW(ut,vt)))}
+    _sm.set(key,r);return r}
+  function stP(a,b){
+    const r=new Map();for(const[ka,ca]of a)for(const[kb,cb]of b)
+    for(const[k,c]of stW(toW(ka),toW(kb)))r.set(k,(r.get(k)||0)+ca*cb*c);
+    for(const[k,v]of r)if(Math.abs(v)<1e-9)r.delete(k);return r}
+
+  // Shuffle product via x,y letters
+  function z2xy(w){return w.map(k=>'x'.repeat(k-1)+'y').join('')}
+  function xy2z(s){if(!s)return[];const p=s.split('y');p.pop();return p.map(x=>x.length+1)}
+  function shXY(a,b){
+    const key=a+'|'+b;if(_shm.has(key))return _shm.get(key);let r;
+    if(!a)r=new Map([[b,1]]);else if(!b)r=new Map([[a,1]]);
+    else{r=new Map();for(const[w,c]of shXY(a.slice(1),b)){const n=a[0]+w;r.set(n,(r.get(n)||0)+c)}
+    for(const[w,c]of shXY(a,b.slice(1))){const n=b[0]+w;r.set(n,(r.get(n)||0)+c)}}
+    _shm.set(key,r);return r}
+  function shP(a,b){
+    const r=new Map();for(const[ka,ca]of a)for(const[kb,cb]of b)
+    for(const[xy,c]of shXY(z2xy(toW(ka)),z2xy(toW(kb)))){const k=xy2z(xy).join(',');r.set(k,(r.get(k)||0)+ca*cb*c)}
+    for(const[k,v]of r)if(Math.abs(v)<1e-9)r.delete(k);return r}
+
+  // φ and R
+  const Z2=new Map([['2',1]]);
+  function phi(w){return pSub(stP(w,Z2),shP(w,Z2))}
+  function compR(u,v){return pSub(pSub(phi(stP(u,v)),stP(phi(u),v)),stP(u,phi(v)))}
+
+  // Compositions of n with parts ≥ 2
+  const _cc={};
+  function comps(n){if(n in _cc)return _cc[n];if(n===0)return _cc[n]=[[]];if(n<2)return _cc[n]=[];
+    const r=[];for(let f=2;f<=n;f++)for(const rest of comps(n-f))r.push([f,...rest]);return _cc[n]=r}
+
+  // Generate a random relation at given weight
+  function genRelation(wt) {
+    const tw=wt-2;
+    // Collect all R(u,v) pairs at this weight
+    const pairs=[];
+    for(let wu=2;wu<=tw-2;wu++){const us=comps(wu),vs=comps(tw-wu);
+      for(const u of us)for(const v of vs)pairs.push([u,v])}
+    if(!pairs.length)return null;
+
+    const strat=Math.random();
+    let rel;
+
+    if(strat<0.35){
+      // Single R(u,v)
+      const[u,v]=pairs[Math.floor(Math.random()*pairs.length)];
+      rel=compR(mkP(u),mkP(v));
+    } else if(strat<0.7 && pairs.length>=2){
+      // Linear combination of 2-3 R(u,v)s
+      const n=Math.min(2+Math.floor(Math.random()*2),pairs.length);
+      const used=new Set();rel=new Map();
+      for(let i=0;i<n;i++){let idx;do{idx=Math.floor(Math.random()*pairs.length)}while(used.has(idx));
+        used.add(idx);const[u,v]=pairs[idx];
+        const c=(Math.floor(Math.random()*3)+1)*(Math.random()<0.5?1:-1);
+        rel=pAdd(rel,pSc(compR(mkP(u),mkP(v)),c))}
+    } else if(wt>=8){
+      // w * R(u,v) for lower-weight R, multiplied up by stuffle
+      const rw=6+Math.floor(Math.random()*Math.max(1,wt-7)); // R weight 6..wt-2
+      const ww=wt-rw;
+      if(ww>=2){
+        const ws=comps(ww),rtw=rw-2,rP=[];
+        for(let wu=2;wu<=rtw-2;wu++){const us=comps(wu),vs=comps(rtw-wu);
+          for(const u of us)for(const v of vs)rP.push([u,v])}
+        if(rP.length&&ws.length){
+          const[u,v]=rP[Math.floor(Math.random()*rP.length)];
+          const w=ws[Math.floor(Math.random()*ws.length)];
+          rel=stP(mkP(w),compR(mkP(u),mkP(v)));
+        }
+      }
+    }
+    // Fallback
+    if(!rel||!rel.size){const[u,v]=pairs[Math.floor(Math.random()*pairs.length)];rel=compR(mkP(u),mkP(v))}
+    // Round
+    for(const[k,v]of rel){const rv=Math.round(v);if(!rv)rel.delete(k);else rel.set(k,rv)}
+    return rel.size?rel:null;
+  }
+
+  // Convert relation to LaTeX with multi-line support
+  function relToTex(rel,rev) {
+    const entries=[...rel.entries()].sort((a,b)=>{
+      const da=a[0].split(',').length,db=b[0].split(',').length;
+      if(da!==db)return db-da;return a[0]<b[0]?-1:1});
+    const lhs=entries.filter(([k])=>k.includes(','));
+    const rhs=entries.filter(([k])=>!k.includes(',')).map(([k,v])=>[k,-v]);
+    const lhsT=lhs.length?lhs:entries;const rhsT=lhs.length?rhs:[];
+
+    function fmtIdx(key){
+      let idx=key;
+      if(rev){idx=key.split(',').reverse().join(',')}
+      return idx;
+    }
+    function fmtTerm(key,c,first){
+      const ac=Math.abs(c);
+      const sign=first?(c<0?'-':''):(c>0?' + ':' - ');
+      const cs=ac===1?'':String(ac);
+      return sign+cs+'G_{'+fmtIdx(key)+'}(\\tau)';
+    }
+    // Build LHS string, split into lines of ~4 terms
+    const lhsParts=[];
+    for(let i=0;i<lhsT.length;i++)lhsParts.push(fmtTerm(lhsT[i][0],lhsT[i][1],i===0));
+    let rhsStr='0';
+    if(rhsT.length){const rp=[];for(let i=0;i<rhsT.length;i++)rp.push(fmtTerm(rhsT[i][0],rhsT[i][1],i===0));rhsStr=rp.join('')}
+
+    const PER_LINE=4;
+    if(lhsParts.length<=PER_LINE){
+      return lhsParts.join('')+' = '+rhsStr;
+    }
+    // Multi-line with gathered
+    let tex='\\begin{gathered}';
+    for(let i=0;i<lhsParts.length;i+=PER_LINE){
+      const chunk=lhsParts.slice(i,i+PER_LINE).join('');
+      const isLast=i+PER_LINE>=lhsParts.length;
+      tex+=chunk+(isLast?' = '+rhsStr:'\\\\');
+    }
+    tex+='\\end{gathered}';
+    return tex;
+  }
+
+  // Convention toggle
+  function setConv(c){
+    _conv=c;
+    document.querySelectorAll('.conv-btn').forEach(b=>b.classList.toggle('active',b.dataset.conv===c));
+    if(_lastRel)renderRel(_lastRel);
+  }
+
+  function renderRel(rel){
+    _lastRel=rel;
+    const tex=relToTex(rel,_conv==='rev');
+    katex.render(tex,document.getElementById('rel-formula'),{displayMode:true,throwOnError:false});
+  }
+
+  function newRelation(){
+    const sel=document.getElementById('rel-weight');
+    const wt=Number(sel.value)||6+Math.floor(Math.random()*12);
+    const btn=document.getElementById('rel-btn');
+    btn.disabled=true;
+    setTimeout(()=>{
+      const rel=genRelation(wt);
+      if(rel)renderRel(rel);
+      btn.disabled=false;
+    },30);
+  }
+
+  function initRelation(){if(typeof katex!=='undefined'){newRelation();renderDef()}else setTimeout(initRelation,100)}
+  function renderDef(){
+    const el=document.getElementById('info-def');
+    if(el)katex.render('G_{k_1,\\dots,k_r}(\\tau)=\\!\\!\\!\\!\\sum_{\\substack{\\lambda_1,\\dots,\\lambda_r\\in\\mathbb{Z}\\tau+\\mathbb{Z}\\\\\\lambda_1\\succ\\cdots\\succ\\lambda_r\\succ 0}}\\!\\!\\!\\!\\frac{1}{\\lambda_1^{k_1}\\cdots\\lambda_r^{k_r}}',el,{displayMode:true,throwOnError:false});
+    const el2=document.getElementById('info-order');
+    if(el2)katex.render('m_1\\tau+n_1 \\succ m_2\\tau+n_2 \\;\\Leftrightarrow\\; m_1>m_2 \\;\\text{ or }\\; (m_1=m_2 \\,\\wedge\\, n_1>n_2)',el2,{displayMode:true,throwOnError:false});
+  }
+  function toggleInfo(){document.getElementById('info-popup').classList.toggle('open')}
+  document.addEventListener('click',function(e){
+    const popup=document.getElementById('info-popup');
+    if(popup&&popup.classList.contains('open')&&!e.target.closest('.info-popup')&&!e.target.closest('.info-trigger'))popup.classList.remove('open');
+  });
+  initRelation();
+
+  // ── Floating background relations ──
+  (function initFloats(){
+    const rels=[
+      '6G₃,₃ − 3G₄,₂ = G₆',
+      '4G₃,₄ + 3G₄,₃ − 2G₅,₂ = G₇',
+      'G₂,₂ · G₂ = 2G₂,₂,₂ + G₂,₄ + G₄,₂',
+      '10G₃,₅ − 6G₅,₃ + G₄,₄ = 3G₈',
+      'G₄ · G₆ = G₄,₆ + G₆,₄ + G₁₀',
+      '3G₂,₂,₂ + G₂,₄ + G₄,₂ = G₂ · G₄',
+      '15G₃,₃,₃ − 9G₃,₄,₂ = 2G₃,₆ + G₉',
+      'ζ(3,5) + ζ(5,3) + ζ(8) = ζ(3)ζ(5)',
+      '2G₂,₃ + 3G₃,₂ = G₂ · G₃',
+      'G₆,₂ + G₂,₆ + G₈ = G₂ · G₆',
+      '5G₃,₇ − 3G₇,₃ + 2G₅,₅ = 2G₁₀',
+      '6G₄,₃,₃ − 3G₄,₄,₂ = G₄,₆',
+    ];
+    const bg=document.getElementById('float-bg');
+    if(!bg)return;
+    const count=10;
+    for(let i=0;i<count;i++){
+      const el=document.createElement('span');
+      el.className='float-rel';
+      el.textContent=rels[Math.floor(Math.random()*rels.length)];
+      const sz=14+Math.random()*14;
+      el.style.fontSize=sz+'px';
+      el.style.top=Math.random()*100+'%';
+      el.style.left=-10+Math.random()*100+'%';
+      const dur=50+Math.random()*70;
+      const dx=(Math.random()<0.5?1:-1)*(80+Math.random()*200);
+      const dy=(Math.random()<0.5?1:-1)*(40+Math.random()*120);
+      const rot=(Math.random()-0.5)*8;
+      el.style.setProperty('--dx',dx+'px');
+      el.style.setProperty('--dy',dy+'px');
+      el.style.setProperty('--rot',rot+'deg');
+      el.style.animationDuration=dur+'s';
+      el.style.animationDelay=-Math.random()*dur+'s';
+      bg.appendChild(el);
+    }
+  })();
 </script>
 
 </body>
