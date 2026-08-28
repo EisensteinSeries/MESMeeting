@@ -382,6 +382,45 @@
     background: var(--border-light);
   }
 
+  .schedule-break--session {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .schedule-break--session::before,
+  .schedule-break--session::after {
+    background: var(--border);
+  }
+
+  /* ── Support ── */
+  .funding-section { margin-bottom: 48px; }
+
+  .funding-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .funding-list li {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .funding-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .funding-detail {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
   /* ── Map ── */
   .map-section { margin-bottom: 48px; }
 
@@ -745,7 +784,7 @@
       <div class="info-card-label" data-en="Date" data-ja="日時">Date</div>
       <div class="info-card-value" id="date-en" data-en="November 8, 2026" data-ja="">November 8, 2026</div>
       <div class="info-card-value info-card-value--ja" id="date-ja" style="display:none;">2026年11月8日（日）</div>
-      <div class="info-card-sub" data-en="10:00 – 15:30" data-ja="10:00 – 15:30">10:00 – 15:30</div>
+      <div class="info-card-sub" data-en="10:00 – 15:45" data-ja="10:00 – 15:45">10:00 – 15:45</div>
     </div>
     <div class="info-card fade-in d2">
       <div class="info-card-label" data-en="Venue" data-ja="会場">Venue</div>
@@ -787,7 +826,8 @@
       <div class="schedule-time">10:00 – 10:50</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
-        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
+        <div class="schedule-speaker">Takumi Maesaka</div>
+        <div class="schedule-affiliation" data-en="Kyushu University" data-ja="九州大学">Kyushu University</div>
         <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
         <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
       </div>
@@ -806,21 +846,71 @@
 
     <div class="schedule-break" data-en="Lunch Break" data-ja="昼休み">Lunch Break</div>
 
+    <div class="schedule-break schedule-break--session" data-en="Short Talks · 15 min each" data-ja="ショートトーク（各15分）">Short Talks · 15 min each</div>
+
     <div class="schedule-item">
-      <div class="schedule-time">13:30 – 14:20</div>
+      <div class="schedule-time">13:30 – 13:45</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
-        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
+        <div class="schedule-speaker"><a href="https://sites.google.com/view/hkanno/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank" rel="noopener">Hayato Kanno</a></div>
+        <div class="schedule-affiliation" data-en="Tohoku University" data-ja="東北大学">Tohoku University</div>
         <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
         <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
       </div>
     </div>
 
     <div class="schedule-item">
-      <div class="schedule-time">14:40 – 15:30</div>
+      <div class="schedule-time">13:50 – 14:05</div>
       <div class="schedule-dot"></div>
       <div class="schedule-content">
-        <div class="schedule-speaker schedule-tbd" data-en="TBD" data-ja="未定">TBD</div>
+        <div class="schedule-speaker">Reito Nakata</div>
+        <div class="schedule-affiliation" data-en="Nagoya University" data-ja="名古屋大学">Nagoya University</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="schedule-time">14:10 – 14:25</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker"><a href="https://sites.google.com/view/yujinbo/" target="_blank" rel="noopener">Jinbo Yu</a></div>
+        <div class="schedule-affiliation" data-en="Nagoya University" data-ja="名古屋大学">Nagoya University</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
+    <div class="schedule-break" data-en="Coffee Break" data-ja="休憩">Coffee Break</div>
+
+    <div class="schedule-item">
+      <div class="schedule-time">14:50 – 15:05</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker">Hung-Chun Tsui</div>
+        <div class="schedule-affiliation" data-en="National Tsing Hua University" data-ja="国立清華大学">National Tsing Hua University</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="schedule-time">15:10 – 15:25</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker">Samyak Parashar</div>
+        <div class="schedule-affiliation" data-en="Nagoya University" data-ja="名古屋大学">Nagoya University</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="schedule-time">15:30 – 15:45</div>
+      <div class="schedule-dot"></div>
+      <div class="schedule-content">
+        <div class="schedule-speaker">Katsumi Kina</div>
+        <div class="schedule-affiliation" data-en="Kyushu University" data-ja="九州大学">Kyushu University</div>
         <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
         <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
       </div>
@@ -871,38 +961,19 @@
     </ul>
   </section>
 
-  <!-- Random Relation -->
-  <section class="relation-section fade-in d7">
-    <div class="relation-label" data-en="Random linear relation among multiple Eisenstein series" data-ja="多重アイゼンシュタイン級数のランダムな線形関係式">Random linear relation among multiple Eisenstein series</div>
-    <div class="relation-box">
-      <button class="info-trigger" onclick="toggleInfo()" title="Definition">i</button>
-      <div class="info-popup" id="info-popup">
-        <div class="info-popup-title" data-en="Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン級数">Multiple Eisenstein Series</div>
-        <div data-en="For integers k₁,…,kᵣ ≥ 2 and τ in the upper half-plane:" data-ja="整数 k₁,…,kᵣ ≥ 2 と上半平面上の τ に対して：">For integers k₁,…,kᵣ ≥ 2 and τ in the upper half-plane:</div>
-        <div class="info-popup-def" id="info-def"></div>
-        <div data-en="The order ≻ on the lattice ℤτ+ℤ is the lexicographic order given by" data-ja="格子 ℤτ+ℤ 上の順序 ≻ は以下の辞書式順序：">The order ≻ on the lattice ℤτ+ℤ is the lexicographic order given by</div>
-        <div class="info-popup-def" id="info-order"></div>
-      </div>
-      <div class="relation-controls">
-        <select class="rel-select" id="rel-weight">
-          <option value="0" data-en="Random wt." data-ja="ランダム">Random wt.</option>
-          <option value="6">Weight 6</option><option value="7">Weight 7</option>
-          <option value="8" selected>Weight 8</option><option value="9">Weight 9</option>
-          <option value="10">Weight 10</option><option value="11">Weight 11</option>
-          <option value="12">Weight 12</option><option value="13">Weight 13</option>
-          <option value="14">Weight 14</option><option value="15">Weight 15</option>
-          <option value="16">Weight 16</option><option value="17">Weight 17</option>
-        </select>
-        <button class="relation-btn" id="rel-btn" onclick="newRelation()">
-          <span data-en="Generate" data-ja="生成">Generate</span>
-        </button>
-        <div class="conv-toggle">
-          <button class="conv-btn active" data-conv="std" onclick="setConv('std')">ζ(2,1)=ζ(3)</button>
-          <button class="conv-btn" data-conv="rev" onclick="setConv('rev')">ζ(1,2)=ζ(3)</button>
-        </div>
-      </div>
-      <div class="relation-formula" id="rel-formula"></div>
-    </div>
+  <!-- Support -->
+  <section class="funding-section fade-in d7">
+    <h2 class="section-heading" data-en="Support" data-ja="助成" data-jp-class="section-heading--ja">Support</h2>
+    <ul class="funding-list">
+      <li>
+        <div class="funding-name" data-en="JSPS KAKENHI" data-ja="JSPS 科研費">JSPS KAKENHI</div>
+        <div class="funding-detail" data-en="Grant Number 26K22254" data-ja="課題番号 26K22254">Grant Number 26K22254</div>
+      </li>
+      <li>
+        <div class="funding-name" data-en="Student Project, Graduate School of Mathematics, Nagoya University" data-ja="名古屋大学多元数理科学研究科 学生プロジェクト">Student Project, Graduate School of Mathematics, Nagoya University</div>
+        <div class="funding-detail" data-en="“Algebraic structures related to multiple Eisenstein series”" data-ja="“Algebraic structures related to multiple Eisenstein series”">“Algebraic structures related to multiple Eisenstein series”</div>
+      </li>
+    </ul>
   </section>
 
   <!-- Footer -->
@@ -1130,7 +1201,6 @@
     const popup=document.getElementById('info-popup');
     if(popup&&popup.classList.contains('open')&&!e.target.closest('.info-popup')&&!e.target.closest('.info-trigger'))popup.classList.remove('open');
   });
-  initRelation();
 
   // ── Floating DVD-bounce relations ──
   const _floatRels = [
