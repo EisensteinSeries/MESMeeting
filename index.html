@@ -20,6 +20,10 @@
     --border: #C2D6D6;
     --border-light: #DDE9EA;
     --link: #0E6163;
+    --warm: #C2410C;
+    --warm-dark: #9A3412;
+    --warm-bg: #FFF7ED;
+    --warm-border: #FDBA74;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -224,6 +228,77 @@
   .lang-en, .lang-ja { display: none; }
   html[lang="en"] .lang-en { display: inline; }
   html[lang="ja"] .lang-ja { display: inline; }
+
+  /* ── Dinner Registration ── */
+  .dinner-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--warm-bg);
+    border: 1px solid var(--warm-border);
+    border-left: 4px solid var(--warm);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 40px;
+    color: var(--text);
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+
+  .dinner-card:hover {
+    text-decoration: none;
+    background: #FFEEDC;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(194, 65, 12, 0.14);
+  }
+
+  .dinner-icon {
+    flex: 0 0 auto;
+    font-size: 27px;
+    line-height: 1;
+  }
+
+  .dinner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .dinner-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--warm-dark);
+  }
+
+  .dinner-title--ja {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+  }
+
+  .dinner-sub {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .dinner-sub--ja { font-family: 'Noto Serif JP', serif; }
+
+  .dinner-cta {
+    flex: 0 0 auto;
+    background: var(--warm);
+    color: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 9px 17px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    .dinner-card { flex-wrap: wrap; gap: 12px; padding: 14px 16px; }
+    .dinner-cta { width: 100%; text-align: center; }
+  }
 
   /* ── Section Heading ── */
   .section-heading {
@@ -795,9 +870,19 @@
 
   <!-- Remark -->
   <div class="remark fade-in d2">
-    <span class="lang-en">Note: The <a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">73rd Kansai Multiple Zeta Seminar</a> will be held on November 7th (the day before) at the same venue. A conference dinner will be held that evening as part of the Kansai seminar — <a href="https://forms.gle/Ah2vj9TDrJSJv4HUA" target="_blank" rel="noopener">registration for the dinner</a>.</span>
-    <span class="lang-ja">備考：前日の11月7日（土）に同会場にて<a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">第73回関西多重ゼータ研究会</a>が開催されます。同研究会の一環として、11月7日（土）の夕方に懇親会を行います。<a href="https://forms.gle/Ah2vj9TDrJSJv4HUA" target="_blank" rel="noopener">懇親会の参加登録はこちら</a>。</span>
+    <span class="lang-en">Note: The <a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">73rd Kansai Multiple Zeta Seminar</a> will be held on November 7th (the day before) at the same venue.</span>
+    <span class="lang-ja">備考：前日の11月7日（土）に同会場にて<a href="https://sites.google.com/site/kmzsince2011/" target="_blank" rel="noopener">第73回関西多重ゼータ研究会</a>が開催されます。</span>
   </div>
+
+  <!-- Dinner Registration -->
+  <a class="dinner-card fade-in d2" href="https://forms.gle/Ah2vj9TDrJSJv4HUA" target="_blank" rel="noopener">
+    <span class="dinner-icon" aria-hidden="true">🍗</span>
+    <span class="dinner-text">
+      <span class="dinner-title" data-en="Conference Dinner — Registration Open" data-ja="懇親会 — 参加登録受付中" data-jp-class="dinner-title--ja">Conference Dinner — Registration Open</span>
+      <span class="dinner-sub" data-en="Evening of November 7, as part of the 73rd Kansai Multiple Zeta Seminar" data-ja="11月7日（土）夕方・第73回関西多重ゼータ研究会の一環として開催" data-jp-class="dinner-sub--ja">Evening of November 7, as part of the 73rd Kansai Multiple Zeta Seminar</span>
+    </span>
+    <span class="dinner-cta" data-en="Register" data-ja="登録する">Register</span>
+  </a>
 
   <!-- Organizers -->
   <div class="organizers fade-in d2">
