@@ -427,7 +427,7 @@
   }
 
   .talk-abstract.open {
-    max-height: 300px;
+    max-height: none;
     padding: 12px 14px;
   }
 
@@ -845,7 +845,7 @@
   <!-- Hero -->
   <header class="hero fade-in">
     <div class="hero-number">2</div>
-    <div class="hero-label" data-en="The 2nd" data-ja="第2回研究会">The 2nd</div>
+    <div class="hero-label" data-en="The 2nd" data-ja="第２回">The 2nd</div>
     <h1>
       <div class="hero-title" data-en="Multiple Eisenstein Series" data-ja="多重アイゼンシュタイン" data-jp-class="hero-title--ja">Multiple Eisenstein Series</div>
       <div class="hero-subtitle" data-en="Research Meeting" data-ja="研究会" data-jp-class="hero-subtitle--ja">Research Meeting</div>
@@ -913,7 +913,7 @@
       <div class="schedule-content">
         <div class="schedule-speaker"><a href="https://mathlog.info/users/657/articles" target="_blank" rel="noopener" data-en="Takumi Maesaka" data-ja="前阪 拓己">Takumi Maesaka</a></div>
         <div class="schedule-affiliation" data-en="Kyushu University" data-ja="九州大学">Kyushu University</div>
-        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="On Eisenstein-Type Hypergeometric Series" data-ja="Eisenstein型の超幾何級数について">On Eisenstein-Type Hypergeometric Series</span> <span class="arrow">▶</span></div>
         <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
       </div>
     </div>
@@ -996,8 +996,8 @@
       <div class="schedule-content">
         <div class="schedule-speaker"><a href="https://sites.google.com/view/katsumikina/" target="_blank" rel="noopener" data-en="Katsumi Kina" data-ja="喜納 勝海">Katsumi Kina</a></div>
         <div class="schedule-affiliation" data-en="Kyushu University" data-ja="九州大学">Kyushu University</div>
-        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="TBA" data-ja="TBA">TBA</span> <span class="arrow">▶</span></div>
-        <div class="talk-abstract" data-en="TBA" data-ja="TBA">TBA</div>
+        <div class="talk-title" onclick="toggleAbstract(this)"><span data-en="Zeros of Quasimodular Forms Defined by Iterated Sums" data-ja="Zeros of Quasimodular Forms Defined by Iterated Sums">Zeros of Quasimodular Forms Defined by Iterated Sums</span> <span class="arrow">▶</span></div>
+        <div class="talk-abstract">In this talk, we discuss the distribution of zeros of the multiple Eisenstein series <span data-tex="G_{\{2\}^n}"><i>G</i><sub>{2}<sup>n</sup></sub></span>, which is a quasimodular form. In particular, we present a method for studying the number of zeros without using the Rankin–Swinnerton-Dyer method, which has played an important role in previous studies of the zeros of Eisenstein series. This talk is based on joint work with Gyucheol Shin of Kangwon National University.</div>
       </div>
     </div>
   </section>
@@ -1115,6 +1115,13 @@
   }
 
   setLang(defaultLang);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof katex === 'undefined') return;
+    document.querySelectorAll('[data-tex]').forEach(el => {
+      katex.render(el.dataset.tex, el, { displayMode: false, throwOnError: false });
+    });
+  });
 
   // ================================================================
   // MES Relation Generator — Stuffle & Shuffle products,
