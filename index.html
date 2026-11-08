@@ -248,6 +248,37 @@
     background: var(--border);
   }
 
+  /* ── Group Photo ── */
+  .photo-section { margin-bottom: 48px; }
+
+  .photo-preview {
+    display: block;
+    max-width: 480px;
+    margin: 0 auto;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .photo-preview:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  }
+
+  .photo-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .photo-caption {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 10px;
+  }
+
   /* ── Schedule ── */
   .schedule { margin-bottom: 48px; }
 
@@ -817,6 +848,15 @@
       </span>
     </div>
   </div>
+
+  <!-- Group Photo -->
+  <section class="photo-section fade-in d3">
+    <h2 class="section-heading" data-en="Group Photo" data-ja="集合写真" data-jp-class="section-heading--ja">Group Photo</h2>
+    <a class="photo-preview" href="images/group-photo-2026.jpg" target="_blank" rel="noopener">
+      <img src="images/group-photo-2026-preview.jpg" width="960" height="720" alt="Group photo of the participants, November 8, 2026">
+    </a>
+    <div class="photo-caption" data-en="Click the photo to view it in full size." data-ja="写真をクリックすると原寸大で表示されます。">Click the photo to view it in full size.</div>
+  </section>
 
   <!-- Schedule -->
   <section class="schedule fade-in d3">
